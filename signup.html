@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sign Up</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@300;400&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --bg: #0f0f0f;
+            --card: #141414;
+            --fg: #f5f5f5;
+            --fg60: rgba(245, 245, 245, 0.6);
+            --fg30: rgba(245, 245, 245, 0.3);
+            --border: rgba(245, 245, 245, 0.15);
+            --primary: #7c6ee0;
+            --muted: #888;
+            --anim: 400ms cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden
+        }
+
+        #root {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            height: 100%;
+            position: relative;
+            background: var(--bg)
+        }
+
+        #grad-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.55
+        }
+
+        .b1 {
+            width: 400px;
+            height: 300px;
+            background: radial-gradient(circle, #7c6ee0 0%, transparent 70%);
+            top: 60%;
+            left: -10%;
+            animation: f1 20s ease-in-out infinite
+        }
+
+        .b2 {
+            width: 350px;
+            height: 280px;
+            background: radial-gradient(circle, #e06e8e 0%, transparent 70%);
+            top: 10%;
+            right: -5%;
+            animation: f2 18s ease-in-out infinite
+        }
+
+        .b3 {
+            width: 300px;
+            height: 250px;
+            background: radial-gradient(circle, #6eb8e0 0%, transparent 70%);
+            top: 40%;
+            left: 50%;
+            animation: f1 25s ease-in-out infinite 3s
+        }
+
+        @keyframes f1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0)
+            }
+
+            50% {
+                transform: translate(-20px, 15px)
+            }
+        }
+
+        @keyframes f2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0)
+            }
+
+            50% {
+                transform: translate(15px, -15px)
+            }
+        }
+
+        #brand {
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 20;
+            white-space: nowrap
+        }
+
+        #brand .logo {
+            background: var(--primary);
+            border-radius: 6px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        #brand .logo svg {
+            width: 16px;
+            height: 16px
+        }
+
+        #brand span {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--fg)
+        }
+
+        #center {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10
+        }
+
+        #form-area {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px
+        }
+
+        .auth-title {
+            font-family: 'EB Garamond', Georgia, serif;
+            font-weight: 300;
+            font-size: 42px;
+            line-height: 1.15;
+            text-align: center;
+            color: var(--fg);
+            letter-spacing: -0.5px
+        }
+
+        .auth-sub {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 500;
+            text-align: center
+        }
+
+        .social-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%
+        }
+
+        .divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid var(--border)
+        }
+
+        .divider span {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            letter-spacing: 1px
+        }
+
+        .gbtn-wrap {
+            position: relative;
+            border-radius: 9999px;
+            cursor: pointer;
+            display: inline-block
+        }
+
+        .gbtn {
+            all: unset;
+            cursor: pointer;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--fg);
+            backdrop-filter: blur(4px);
+            background: linear-gradient(-75deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), inset 0 -1px 1px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform var(--anim), box-shadow var(--anim);
+            position: relative;
+            z-index: 1
+        }
+
+        .gbtn:hover {
+            transform: scale(0.975)
+        }
+
+        .gbtn:active {
+            transform: scale(0.96) rotateX(10deg)
+        }
+
+        .gbtn.icon-only {
+            padding: 8px;
+            width: 36px;
+            height: 36px;
+            justify-content: center
+        }
+
+        .gbtn svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0
+        }
+
+        .ginput-wrap {
+            position: relative;
+            width: 100%;
+            border-radius: 9999px
+        }
+
+        .ginput {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 9999px;
+            padding: 4px 4px 4px 14px;
+            backdrop-filter: blur(4px);
+            background: linear-gradient(-75deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06), inset 0 -1px 1px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: box-shadow var(--anim)
+        }
+
+        .ginput:focus-within {
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 2px 10px rgba(124, 110, 224, 0.2), 0 0 0 1px rgba(124, 110, 224, 0.3)
+        }
+
+        .ginput .icon {
+            flex-shrink: 0;
+            color: var(--fg60);
+            display: flex;
+            align-items: center;
+            height: 34px;
+            width: 20px;
+            justify-content: center
+        }
+
+        .ginput input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--fg);
+            font-size: 14px;
+            padding: 8px 0;
+            min-width: 0;
+            caret-color: var(--fg)
+        }
+
+        .ginput input::placeholder {
+            color: var(--fg60)
+        }
+
+        .ginput .peek-btn {
+            all: unset;
+            cursor: pointer;
+            color: var(--fg60);
+            padding: 6px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s
+        }
+
+        .ginput .peek-btn:hover {
+            color: var(--fg)
+        }
+
+        .ginput .arrow-btn {
+            flex-shrink: 0;
+            overflow: hidden;
+            width: 0;
+            transition: width var(--anim);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ginput .arrow-btn.show {
+            width: 48px;
+        }
+
+        .go-back {
+            all: unset;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--fg60);
+            transition: color 0.2s;
+            margin-top: 8px
+        }
+
+        .go-back:hover {
+            color: var(--fg)
+        }
+
+        .field-wrap {
+            position: relative;
+            width: 100%
+        }
+
+        .float-label {
+            position: absolute;
+            top: -18px;
+            left: 14px;
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: opacity 0.3s, transform 0.3s
+        }
+
+        .float-label.show {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .slide-section {
+            transition: opacity 0.3s ease, transform 0.3s ease
+        }
+
+        .slide-section.hidden {
+            opacity: 0;
+            transform: translateY(8px);
+            pointer-events: none;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+            padding: 0
+        }
+
+        #modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px)
+        }
+
+        #modal-overlay.open {
+            display: flex
+        }
+
+        #modal-box {
+            background: rgba(25, 25, 28, 0.92);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 36px 32px;
+            width: calc(100% - 32px);
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.88);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        #modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            all: unset;
+            cursor: pointer;
+            color: var(--muted);
+            padding: 6px;
+            border-radius: 50%;
+            transition: color 0.2s
+        }
+
+        #modal-close:hover {
+            color: var(--fg)
+        }
+
+        .modal-msg {
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--fg);
+            text-align: center
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .spin-icon {
+            animation: spin 1s linear infinite
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.35s ease forwards
+        }
+
+        input[type=password]::-ms-reveal,
+        input[type=password]::-ms-clear {
+            display: none
+        }
+
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+            -webkit-text-fill-color: var(--fg) !important;
+            transition: background-color 5000s 0s
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <canvas id="confetti-canvas"></canvas>
+        <div id="grad-bg">
+            <div class="blob b1"></div>
+            <div class="blob b2"></div>
+            <div class="blob b3"></div>
+        </div>
+
+        <div id="brand">
+            <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg></div>
+            <span id="brand-name">x1A Activity
+                Tracker
+            </span>
+        </div>
+
+        <div id="center">
+            <div id="form-area">
+
+                <!-- EMAIL STEP -->
+                <div id="step-email" class="slide-section"
+                    style="width:100%;display:flex;flex-direction:column;align-items:center;gap:20px">
+                    <div class="fade-in" style="text-align:center">
+                        <div class="auth-title">Get started<br>with Us</div>
+                    </div>
+                    <div class="auth-sub fade-in" style="animation-delay:0.1s">Continue with</div>
+                    <div class="social-row fade-in" style="animation-delay:0.18s">
+                        <div class="gbtn-wrap">
+                            <button class="gbtn" type="button">
+                                <svg viewBox="0 0 64 64" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill-rule="evenodd" fill="none">
+                                        <g fill-rule="nonzero" transform="translate(3,2)">
+                                            <path fill="#4285F4"
+                                                d="M57.8123233,30.1515267C57.8123233,27.7263183 57.6155321,25.9565533 57.1896408,24.1212666L29.4960833,24.1212666L29.4960833,35.0674653L45.7515771,35.0674653C45.4239683,37.7877475 43.6542033,41.8844383 39.7213169,44.6372555L39.6661883,45.0037254L48.4223791,51.7870338L49.0290201,51.8475849C54.6004021,46.7020943 57.8123233,39.1313952 57.8123233,30.1515267" />
+                                            <path fill="#34A853"
+                                                d="M29.4960833,58.9921667C37.4599129,58.9921667 44.1456164,56.3701671 49.0290201,51.8475849L39.7213169,44.6372555C37.2305867,46.3742596 33.887622,47.5868638 29.4960833,47.5868638C21.6960582,47.5868638 15.0758763,42.4415991 12.7159637,35.3297782L12.3700541,35.3591501L3.26524241,42.4054492L3.14617358,42.736447C7.9965904,52.3717589 17.959737,58.9921667 29.4960833,58.9921667" />
+                                            <path fill="#FBBC05"
+                                                d="M12.7159637,35.3297782C12.0932812,33.4944915 11.7329116,31.5279353 11.7329116,29.4960833C11.7329116,27.4640054 12.0932812,25.4976752 12.6832029,23.6623884L12.6667095,23.2715173L3.44779955,16.1120237L3.14617358,16.2554937C1.14708246,20.2539019 0,24.7439491 0,29.4960833C0,34.2482175 1.14708246,38.7380388 3.14617358,42.736447L12.7159637,35.3297782" />
+                                            <path fill="#EB4335"
+                                                d="M29.4960833,11.4050769C35.0347044,11.4050769 38.7707997,13.7975244 40.9011602,15.7968415L49.2255853,7.66898166C44.1130815,2.91684746 37.4599129,0 29.4960833,0C17.959737,0 7.9965904,6.62018183 3.14617358,16.2554937L12.6832029,23.6623884C15.0758763,16.5505675 21.6960582,11.4050769 29.4960833,11.4050769" />
+                                        </g>
+                                    </g>
+                                </svg>
+                                <span>Google</span>
+                            </button>
+                        </div>
+                        <div class="gbtn-wrap">
+                            <button class="gbtn" type="button">
+                                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                                    <path fill="currentColor"
+                                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                </svg>
+                                <span>GitHub</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="divider fade-in" style="animation-delay:0.25s;width:300px">
+                        <hr><span>OR</span>
+                        <hr>
+                    </div>
+                    <div class="field-wrap" style="width:300px">
+                        <div class="ginput-wrap">
+                            <div class="ginput" id="email-ginput">
+                                <div class="icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="4" width="20" height="16" rx="2" />
+                                        <polyline points="2,4 12,13 22,4" />
+                                    </svg>
+                                </div>
+                                <input id="email-input" type="email" placeholder="Email" autocomplete="email" />
+                                <div class="arrow-btn" id="email-arrow">
+                                    <button class="gbtn icon-only" type="button" id="email-next-btn"
+                                        aria-label="Continue with email">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                            <polyline points="12 5 19 12 12 19" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASSWORD STEP -->
+                <div id="step-password" class="slide-section hidden"
+                    style="width:100%;display:flex;flex-direction:column;align-items:center;gap:20px">
+                    <div style="text-align:center">
+                        <div class="auth-title">Create your<br>password</div>
+                    </div>
+                    <div class="auth-sub">Your password must be at least 6 characters.</div>
+                    <div class="field-wrap" style="width:300px">
+                        <div class="float-label show" id="email-label-pw">Email</div>
+                        <div class="ginput-wrap">
+                            <div class="ginput">
+                                <div class="icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="4" width="20" height="16" rx="2" />
+                                        <polyline points="2,4 12,13 22,4" />
+                                    </svg>
+                                </div>
+                                <input id="email-display" type="text" readonly tabindex="-1"
+                                    style="color:var(--fg60);cursor:default" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field-wrap" style="width:300px">
+                        <div class="float-label" id="pw-label">Password</div>
+                        <div class="ginput-wrap">
+                            <div class="ginput" id="pw-ginput">
+                                <div class="icon" id="pw-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                </div>
+                                <input id="pw-input" type="password" placeholder="Password"
+                                    autocomplete="new-password" />
+                                <button class="peek-btn" id="pw-peek" type="button" aria-label="Toggle password"
+                                    style="display:none">
+                                    <svg id="pw-eye" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </button>
+                                <div class="arrow-btn" id="pw-arrow">
+                                    <button class="gbtn icon-only" type="button" id="pw-next-btn" aria-label="Continue">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                            <polyline points="12 5 19 12 12 19" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="go-back" id="pw-back" type="button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12" />
+                            <polyline points="12 19 5 12 12 5" />
+                        </svg>
+                        Go back
+                    </button>
+                </div>
+
+                <!-- CONFIRM PASSWORD STEP -->
+                <div id="step-confirm" class="slide-section hidden"
+                    style="width:100%;display:flex;flex-direction:column;align-items:center;gap:20px">
+                    <div style="text-align:center">
+                        <div class="auth-title">One last<br>step</div>
+                    </div>
+                    <div class="auth-sub">Confirm your password to continue.</div>
+                    <div class="field-wrap" style="width:300px">
+                        <div class="float-label" id="cpw-label">Confirm password</div>
+                        <div class="ginput-wrap">
+                            <div class="ginput" id="cpw-ginput">
+                                <div class="icon" id="cpw-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                </div>
+                                <input id="cpw-input" type="password" placeholder="Confirm Password"
+                                    autocomplete="new-password" />
+                                <button class="peek-btn" id="cpw-peek" type="button"
+                                    aria-label="Toggle confirm password" style="display:none">
+                                    <svg id="cpw-eye" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </button>
+                                <div class="arrow-btn" id="cpw-arrow">
+                                    <button class="gbtn icon-only" type="button" id="submit-btn"
+                                        aria-label="Finish sign-up">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                            <polyline points="12 5 19 12 12 19" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="go-back" id="cpw-back" type="button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12" />
+                            <polyline points="12 19 5 12 12 5" />
+                        </svg>
+                        Go back
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MODAL -->
+        <div id="modal-overlay" role="dialog" aria-modal="true">
+            <div id="modal-box">
+                <button id="modal-close" aria-label="Close" style="display:none">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+                <div class="modal-icon" id="modal-icon"></div>
+                <div class="modal-msg" id="modal-msg"></div>
+                <div id="modal-action"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const emailInput = document.getElementById('email-input');
+            const emailArrow = document.getElementById('email-arrow');
+            const emailNextBtn = document.getElementById('email-next-btn');
+            const stepEmail = document.getElementById('step-email');
+            const stepPassword = document.getElementById('step-password');
+            const stepConfirm = document.getElementById('step-confirm');
+            const emailDisplay = document.getElementById('email-display');
+            const pwInput = document.getElementById('pw-input');
+            const pwArrow = document.getElementById('pw-arrow');
+            const pwNextBtn = document.getElementById('pw-next-btn');
+            const pwPeek = document.getElementById('pw-peek');
+            const pwIcon = document.getElementById('pw-icon');
+            const pwLabel = document.getElementById('pw-label');
+            const pwBack = document.getElementById('pw-back');
+            const cpwInput = document.getElementById('cpw-input');
+            const cpwArrow = document.getElementById('cpw-arrow');
+            const submitBtn = document.getElementById('submit-btn');
+            const cpwPeek = document.getElementById('cpw-peek');
+            const cpwIcon = document.getElementById('cpw-icon');
+            const cpwLabel = document.getElementById('cpw-label');
+            const cpwBack = document.getElementById('cpw-back');
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalClose = document.getElementById('modal-close');
+            const modalIcon = document.getElementById('modal-icon');
+            const modalMsg = document.getElementById('modal-msg');
+            const modalAction = document.getElementById('modal-action');
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function showStep(step) {
+                [stepEmail, stepPassword, stepConfirm].forEach(s => s.classList.add('hidden'));
+                step.classList.remove('hidden');
+                step.classList.add('fade-in');
+                setTimeout(() => step.classList.remove('fade-in'), 500);
+            }
+
+            function isEmailValid(v) { return /\S+@\S+\.\S+/.test(v) }
+            function isPasswordValid(v) { return v.length >= 6 }
+
+            emailInput.addEventListener('input', () => {
+                emailArrow.classList.toggle('show', isEmailValid(emailInput.value));
+            });
+            emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); if (isEmailValid(emailInput.value)) goToPassword() } });
+            emailNextBtn.addEventListener('click', () => { if (isEmailValid(emailInput.value)) goToPassword() });
+
+            function goToPassword() {
+                emailDisplay.value = emailInput.value;
+                showStep(stepPassword);
+                setTimeout(() => pwInput.focus(), 350);
+            }
+
+            pwInput.addEventListener('input', () => {
+                const v = pwInput.value;
+                const valid = isPasswordValid(v);
+                pwArrow.classList.toggle('show', valid);
+                pwLabel.classList.toggle('show', v.length > 0);
+                if (valid) { pwIcon.style.display = 'none'; pwPeek.style.display = 'flex'; }
+                else { pwIcon.style.display = 'flex'; pwPeek.style.display = 'none'; }
+            });
+            pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); if (isPasswordValid(pwInput.value)) goToConfirm() } });
+            pwNextBtn.addEventListener('click', () => { if (isPasswordValid(pwInput.value)) goToConfirm() });
+            pwBack.addEventListener('click', () => { showStep(stepEmail); setTimeout(() => emailInput.focus(), 350) });
+
+            let pwVisible = false;
+            pwPeek.addEventListener('click', () => {
+                pwVisible = !pwVisible;
+                pwInput.type = pwVisible ? 'text' : 'password';
+                pwPeek.querySelector('svg').innerHTML = pwVisible
+                    ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
+                    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8" fill="none"/>';
+            });
+
+            function goToConfirm() {
+                showStep(stepConfirm);
+                setTimeout(() => cpwInput.focus(), 350);
+            }
+
+            cpwInput.addEventListener('input', () => {
+                const v = cpwInput.value;
+                const valid = isPasswordValid(v);
+                cpwArrow.classList.toggle('show', valid);
+                cpwLabel.classList.toggle('show', v.length > 0);
+                if (valid) { cpwIcon.style.display = 'none'; cpwPeek.style.display = 'flex'; }
+                else { cpwIcon.style.display = 'flex'; cpwPeek.style.display = 'none'; }
+            });
+            cpwBack.addEventListener('click', () => { cpwInput.value = ''; showStep(stepPassword); setTimeout(() => pwInput.focus(), 350) });
+
+            let cpwVisible = false;
+            cpwPeek.addEventListener('click', () => {
+                cpwVisible = !cpwVisible;
+                cpwInput.type = cpwVisible ? 'text' : 'password';
+                cpwPeek.querySelector('svg').innerHTML = cpwVisible
+                    ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
+                    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8" fill="none"/>';
+            });
+
+            submitBtn.addEventListener('click', doSubmit);
+
+            function doSubmit() {
+                if (!isPasswordValid(cpwInput.value)) return;
+                if (pwInput.value !== cpwInput.value) {
+                    showModal('error', "Passwords don't match!");
+                } else {
+                    showModal('loading', null);
+                    const steps = ["Signing you up...", "Onboarding you...", "Finalizing..."];
+                    let i = 0;
+                    const iv = setInterval(() => {
+                        i++;
+                        if (i < steps.length) { modalMsg.textContent = steps[i]; }
+                        else { clearInterval(iv); showModal('success', 'Welcome Aboard!'); fireSideCanons(); }
+                    }, 1500);
+                }
+            }
+
+            function showModal(type, msg) {
+                modalOverlay.classList.add('open');
+                modalAction.innerHTML = '';
+                if (type === 'loading') {
+                    modalClose.style.display = 'none';
+                    modalIcon.innerHTML = `<svg class="spin-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#7c6ee0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
+                    modalMsg.textContent = "Signing you up...";
+                } else if (type === 'error') {
+                    modalClose.style.display = 'block';
+                    modalIcon.innerHTML = `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e06e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+                    modalMsg.textContent = msg;
+                    modalAction.innerHTML = `<button class="gbtn" onclick="closeModal()" style="margin-top:12px">Try Again</button>`;
+                } else if (type === 'success') {
+                    modalClose.style.display = 'block';
+                    modalIcon.innerHTML = `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6ee099" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/><polyline points="9 11 12 14 22 4"/></svg>`;
+                    modalMsg.textContent = msg;
+                }
+            }
+
+            window.closeModal = function () { modalOverlay.classList.remove('open'); };
+            modalClose.addEventListener('click', closeModal);
+
+            function fireSideCanons() {
+                const colors = ['#7c6ee0', '#e06e8e', '#6eb8e0', '#e0c06e', '#6ee0a0', '#e0826e'];
+                for (let i = 0; i < 100; i++) {
+                    particles.push({
+                        x: Math.random() < 0.5 ? 0 : canvas.width, y: canvas.height,
+                        vx: (Math.random() < 0.5 ? 1 : -1) * (2 + Math.random() * 5),
+                        vy: -(6 + Math.random() * 9),
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        size: 4 + Math.random() * 5, gravity: 0.18, life: 1,
+                        decay: 0.012 + Math.random() * 0.01,
+                        angle: Math.random() * 360, spin: (Math.random() - 0.5) * 8
+                    });
+                }
+                if (!animating) requestAnimationFrame(tick);
+            }
+
+            let animating = false;
+            function tick() {
+                animating = true;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles = particles.filter(p => p.life > 0);
+                if (!particles.length) { animating = false; return; }
+                particles.forEach(p => {
+                    p.vy += p.gravity; p.x += p.vx; p.y += p.vy; p.life -= p.decay; p.angle += p.spin;
+                    ctx.save(); ctx.globalAlpha = p.life; ctx.translate(p.x, p.y); ctx.rotate(p.angle * Math.PI / 180);
+                    ctx.fillStyle = p.color; ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+                    ctx.restore();
+                });
+                requestAnimationFrame(tick);
+            }
+
+            window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+        })();
+    </script>
+</body>
+
+</html>
